@@ -15,7 +15,7 @@ import {
   Newspaper, Music2, X, Plus, Trash2,
   Lock, LogOut, Image, AlignLeft, Type,
   ExternalLink, RefreshCw, Calendar, Tv, Music,
-  Radio, Star, List
+  Radio, Star, List, Menu
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MOCK_NEWS, MOCK_CULTURE, MOCK_PROGRAMS, ProgramItem } from './constants';
@@ -721,6 +721,7 @@ function NewsPage() {
 // ─── Programs Page ─────────────────────────────────────────
 function ProgramsPage({ onPlay }: { onPlay: () => void }) {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const onNavigate = (p: string) => {
     if (p === 'landing') navigate('/');
     else if (p === 'news') navigate('/news');
@@ -756,8 +757,30 @@ function ProgramsPage({ onPlay }: { onPlay: () => void }) {
             <span className="hidden xs:inline">OUVIR AGORA</span>
             <span className="xs:hidden">OUVIR</span>
           </motion.button>
+
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden relative z-10 p-2 text-white hover:bg-white/10 rounded-full transition-colors">
+            <Menu size={24} />
+          </button>
         </div>
       </header>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden absolute top-16 md:top-20 left-0 right-0 bg-[#e94700] border-t border-white/10 shadow-xl z-20"
+          >
+            <nav className="flex flex-col p-4 text-white text-sm font-bold uppercase tracking-widest">
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('news'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Notícias</button>
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('programs'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Programas</button>
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('podcast'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Estúdio ao Vivo</button>
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('contact'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Contato</button>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 flex-1 w-full">
         <div className="flex items-center justify-between mb-8 md:mb-12">
@@ -819,7 +842,6 @@ function ProgramsPage({ onPlay }: { onPlay: () => void }) {
       <footer className="bg-white border-t border-slate-200 py-10 md:py-16 px-6 shrink-0 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-8 md:flex-row md:justify-between">
           <div className="flex flex-col items-center md:items-start gap-4">
-            <img src="https://i.postimg.cc/fWdv55vc/LOGO-PP-(1).png" alt="Logo" className="h-10 md:h-12 w-auto grayscale opacity-40 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
             <p className="text-slate-400 text-[10px] md:text-xs font-medium text-center md:text-left">© 2026 Difusora Colatina 104.3 FM.<br className="md:hidden" /> Todos os direitos reservados.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-slate-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">
@@ -839,6 +861,7 @@ function ProgramsPage({ onPlay }: { onPlay: () => void }) {
 function LandingPage({ onPlay }: { onPlay: () => void }) {
   const navigate = useNavigate();
   const [showAllNews, setShowAllNews] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const onNavigate = (p: string) => {
     if (p === 'landing') {
       setShowAllNews(false);
@@ -925,8 +948,30 @@ function LandingPage({ onPlay }: { onPlay: () => void }) {
             <span className="hidden xs:inline">OUVIR AGORA</span>
             <span className="xs:hidden">OUVIR</span>
           </motion.button>
+
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden relative z-10 p-2 text-white hover:bg-white/10 rounded-full transition-colors">
+            <Menu size={24} />
+          </button>
         </div>
       </header>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden absolute top-16 md:top-20 left-0 right-0 bg-[#e94700] border-t border-white/10 shadow-xl z-20"
+          >
+            <nav className="flex flex-col p-4 text-white text-sm font-bold uppercase tracking-widest">
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('news'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Notícias</button>
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('programs'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Programas</button>
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('podcast'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Estúdio ao Vivo</button>
+              <button onClick={() => { setIsMenuOpen(false); onNavigate('contact'); }} className="py-3 text-left hover:bg-white/10 px-4 rounded-lg transition-colors">Contato</button>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-10">
@@ -1181,7 +1226,6 @@ function LandingPage({ onPlay }: { onPlay: () => void }) {
       <footer className="bg-white border-t border-slate-200 py-10 md:py-16 px-6">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-8 md:flex-row md:justify-between">
           <div className="flex flex-col items-center md:items-start gap-4">
-            <img src="https://i.postimg.cc/fWdv55vc/LOGO-PP-(1).png" alt="Logo" className="h-10 md:h-12 w-auto grayscale opacity-40 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
             <p className="text-slate-400 text-[10px] md:text-xs font-medium text-center md:text-left">© 2026 Difusora Colatina 104.3 FM.<br className="md:hidden" /> Todos os direitos reservados.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-slate-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest">
