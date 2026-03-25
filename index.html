@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rádio Difusora</title>
+  </head>
+  <body>
+    <script>
+      // Polyfill global for libraries that expect it
+      // Using Object.create(window) allows shadowing properties like 'fetch' 
+      // which might be read-only on the window object in some environments.
+      window.global = Object.create(window);
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
